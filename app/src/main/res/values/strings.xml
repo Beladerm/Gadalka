@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Gadalka</string>
+    <string name="random_button">Generate your properties</string>
+    <string name="random_quote">ME BORED!</string>
+    <string name="random_joke">ANEKDOT\n</string>
+    <string name="exit">EXIT</string>
+    <string name="enter_name">Entire name\n</string>
 </resources>

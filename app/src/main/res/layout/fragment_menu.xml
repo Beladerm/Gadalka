@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="60dp"
+        android:hint="@string/enter_name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@id/randomButton"
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="name" />
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/randomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/random_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/turquoise"
+        app:cornerRadius="50dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/random_joke"
+        android:id="@+id/jokeButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/randomButton"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/random_quote"
+        android:layout_marginTop="20dp"
+        android:id="@+id/quoteButton"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/randomButton"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exit"
+        android:text="@string/exit"
+        app:layout_constraintTop_toBottomOf="@id/jokeButton"
+        app:layout_constraintStart_toEndOf="@id/jokeButton"
+        app:layout_constraintEnd_toStartOf="@id/quoteButton"
+        android:layout_marginTop="20dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
