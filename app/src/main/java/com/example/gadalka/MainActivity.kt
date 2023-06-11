@@ -1,17 +1,13 @@
 package com.example.gadalka
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.gadalka.ui.theme.GadalkaTheme
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.example.gadalka.fragments.MenuFragment
+import ru.ms.stu.todolist_va.R
+import ru.ms.stu.todolist_va.databinding.ActivityMainBinding
 
 const val bored = "https://www.boredapi.com/api/activity"
 const val joke = "https://official-joke-api.appspot.com/random_joke"
@@ -22,37 +18,45 @@ const val nationality = "https://api.nationalize.io?name="
 
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            GadalkaTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+
+    private lateinit var binding: ActivityMainBinding
+
+    private val currentFragment: Fragment
+        get() = supportFragmentManager.findFragmentById(R.id.fragment_container)!!
+
+    private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentViewCreated(
+            fm: FragmentManager,
+            f: Fragment,
+            v: View,
+            savedInstanceState: Bundle?
+        ) {
+            super.onFragmentCreated(fm, f, savedInstanceState)
+            updateUI()
         }
     }
-}
+
+    private fun updateUI() {
+        val fragment = currentFragment
+        // TODO: update UI
 
 
+    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+            binding = ActivityMainBinding
+            .inflate(layoutInflater)
+            .also { setContentView(it.root) }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, MenuFragment())
+                .commit()
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    GadalkaTheme {
-        Greeting("Android")
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
+
     }
 }
