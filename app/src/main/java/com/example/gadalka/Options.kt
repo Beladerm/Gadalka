@@ -2,7 +2,6 @@ package com.example.gadalka
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import kotlin.random.Random
 
 @Parcelize
 data class Options(
@@ -11,7 +10,7 @@ data class Options(
 
     companion object {
         @JvmStatic val DEFAULT = Options(
-            name = "NIGGERS",
+            name = "NIGGER",
         )
     }
 }
