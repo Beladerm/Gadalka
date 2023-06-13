@@ -1,4 +1,4 @@
-package com.example.gadalka
+package com.example.gadalka.model
 
 data class Bored(
     val activity: String,
