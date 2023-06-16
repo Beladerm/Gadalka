@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Gadalka" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Gadalka" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Другие настройки темы -->
+        <item name="android:windowBackground">@color/white</item>
+
+        <!-- Настройки для кнопок -->
+        <item name="materialButtonStyle">@style/Gadalka.MaterialButton</item>
+    </style>
+
+    <style name="Gadalka.MaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/turquoise</item>
+        <item name="strokeColor">@color/black</item>
+        <!-- Другие настройки для кнопок -->
+    </style>
+
+
+
 </resources>

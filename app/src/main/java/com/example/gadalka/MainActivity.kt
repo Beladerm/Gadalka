@@ -18,12 +18,11 @@ import com.example.gadalka.contract.HasCustomAction
 import com.example.gadalka.contract.HasCustomTitle
 import com.example.gadalka.contract.Navigator
 import com.example.gadalka.contract.ResultListener
+import com.example.gadalka.databinding.ActivityMainBinding
 import com.example.gadalka.fragments.BaseFragment
 import com.example.gadalka.fragments.BoredFragment
 import com.example.gadalka.fragments.JokeFragment
 import com.example.gadalka.fragments.MenuFragment
-import ru.ms.stu.todolist_va.R
-import ru.ms.stu.todolist_va.databinding.ActivityMainBinding
 
 const val bored = "https://www.boredapi.com/api/activity"
 const val joke = "https://official-joke-api.appspot.com/random_joke"
