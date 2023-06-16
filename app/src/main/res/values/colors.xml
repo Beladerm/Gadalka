@@ -8,5 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="turquoise">#00CED1</color>
+    <color name="hint">#FF626262</color>
+
+    <color name="background">#0F2447</color>
+    <color name="form_stroke">#1E428A</color>
+    <color name="input_background">#84878C</color>
+    <color name="input_background_disabled">#E8EDF8</color>
+    <color name="edit_text_enabled">#232323</color>
+    <color name="edit_text_disabled">#9a9a9a</color>
 
 </resources>

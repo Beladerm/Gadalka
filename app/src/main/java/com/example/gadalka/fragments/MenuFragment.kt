@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
-import ru.ms.stu.todolist_va.databinding.FragmentMenuBinding
+import com.example.gadalka.databinding.FragmentMenuBinding
 
 class MenuFragment: Fragment() {
 
@@ -31,16 +31,43 @@ class MenuFragment: Fragment() {
         optionsViewModel.name.observe(viewLifecycleOwner) { name ->
             options = options.copy(name = name)
         }
-
-        navigator().listenResult(Options::class.java, viewLifecycleOwner) {
-            options = it
-        }
-
+//
+//        navigator().listenResult(Options::class.java, viewLifecycleOwner) {
+//            options = it
+//        }
         with(binding) {
-            val name = editTextTextPersonName.text.toString()
-            randomButton.setOnClickListener { onBasePressed(name) }
-            boredButton.setOnClickListener { onBoredPressed(name) }
-            jokeButton.setOnClickListener { onJokePressed(name) }
+
+            randomButton.setOnClickListener {
+                val name = editTextTextPersonName.text.toString().trim()
+
+                if (name.isNotBlank()) {
+                    onBasePressed(name)
+                } else {
+                    editTextTextPersonName.error = "Введите имя"
+                }
+            }
+
+            boredButton.setOnClickListener {
+                val name = editTextTextPersonName.text.toString().trim()
+
+                if (name.isNotBlank()) {
+                    onBoredPressed(name)
+                } else {
+                    editTextTextPersonName.error = "Введите имя"
+                }
+            }
+
+            jokeButton.setOnClickListener {
+                val name = editTextTextPersonName.text.toString().trim()
+
+                if (name.isNotBlank()) {
+                    onJokePressed(name)
+                } else {
+                    editTextTextPersonName.error = "Введите имя"
+                }
+            }
+
+
             return root
         }
     }
