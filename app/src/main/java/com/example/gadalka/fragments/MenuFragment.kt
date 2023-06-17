@@ -15,6 +15,7 @@ class MenuFragment: Fragment() {
 
     private lateinit var options: Options
     private val optionsViewModel: OptionsViewModel by viewModels()
+    private lateinit var binding: FragmentMenuBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,7 @@ class MenuFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentMenuBinding.inflate(inflater, container, false)
+        binding = FragmentMenuBinding.inflate(inflater, container, false)
 
         optionsViewModel.name.observe(viewLifecycleOwner) { name ->
             options = options.copy(name = name)
@@ -38,40 +39,38 @@ class MenuFragment: Fragment() {
         with(binding) {
 
             randomButton.setOnClickListener {
-                val name = editTextTextPersonName.text.toString().trim()
-
-                if (name.isNotBlank()) {
-                    onBasePressed(name)
-                } else {
-                    editTextTextPersonName.error = "Введите имя"
-                }
+                onButtonPressed { name ->
+                    onBasePressed(name) }
             }
 
             boredButton.setOnClickListener {
-                val name = editTextTextPersonName.text.toString().trim()
-
-                if (name.isNotBlank()) {
-                    onBoredPressed(name)
-                } else {
-                    editTextTextPersonName.error = "Введите имя"
-                }
+                onButtonPressed { name ->
+                    onBoredPressed(name) }
             }
 
             jokeButton.setOnClickListener {
-                val name = editTextTextPersonName.text.toString().trim()
-
-                if (name.isNotBlank()) {
-                    onJokePressed(name)
-                } else {
-                    editTextTextPersonName.error = "Введите имя"
-                }
+                onButtonPressed { name ->
+                    onJokePressed(name) }
             }
+
+            exit.setOnClickListener { onExitPressed() }
 
 
             return root
+
+
         }
     }
 
+    private fun onButtonPressed(onPressed: (String) -> Unit) {
+        val name = binding.editTextTextPersonName.text.toString().trim()
+
+        if (name.isNotBlank()) {
+            onPressed(name)
+        } else {
+            binding.editTextTextPersonName.error = "Введите имя"
+        }
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_OPTIONS, options)
@@ -94,6 +93,8 @@ class MenuFragment: Fragment() {
         optionsViewModel.setName(name)
         navigator().showBaseScreen(options)
     }
+
+
 
     companion object {
         private const val KEY_OPTIONS = "OPTIONS"
