@@ -24,13 +24,6 @@ import com.example.gadalka.fragments.BoredFragment
 import com.example.gadalka.fragments.JokeFragment
 import com.example.gadalka.fragments.MenuFragment
 
-const val bored = "https://www.boredapi.com/api/activity"
-const val joke = "https://official-joke-api.appspot.com/random_joke"
-
-const val gender = "https://api.genderize.io?name="
-const val age = "https://api.agify.io?name="
-const val nationality = "https://api.nationalize.io?name="
-
 
 class MainActivity : AppCompatActivity(), Navigator {
 
@@ -146,11 +139,11 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun showBoredScreen(options: Options) {
-        launchFragment(BoredFragment())
+        launchFragment(BoredFragment.newInstance(options))
     }
 
     override fun showJokeScreen(options: Options) {
-        launchFragment(JokeFragment())
+        launchFragment(JokeFragment.newInstance(options))
     }
 
     override fun goBack() {
