@@ -7,8 +7,8 @@ class ApiConstants {
         const val AGE_URL = "https://api.agify.io?name="
         const val NATIONALITY_URL = "https://api.nationalize.io?name="
 
-        const val BORED_URL = "https://www.boredapi.com/api/activity"
-        const val JOKE_URL = "https://official-joke-api.appspot.com/random_joke"
+        const val BORED_URL = "https://www.boredapi.com/api/"
+        const val JOKE_URL = "https://official-joke-api.appspot.com/"
 
     }
 

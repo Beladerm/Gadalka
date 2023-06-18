@@ -8,15 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
-import com.example.gadalka.databinding.FragmentBoredBinding
+import com.example.gadalka.databinding.FragmentBaseBinding
 
-class BoredFragment : Fragment() {
+class PersonFragment : Fragment() {
 
-    private lateinit var binding: FragmentBoredBinding
+    private lateinit var binding: FragmentBaseBinding
 
     private var options: Options? = null
 
-    private val boredViewModel: BoredViewModel by viewModels()
+    private val personViewModel: PersonViewModel by viewModels()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +32,7 @@ class BoredFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBoredBinding.inflate(inflater, container, false)
+        binding = FragmentBaseBinding.inflate(inflater, container, false)
         binding.exit.setOnClickListener { onExitPressed() }
         return binding.root
     }
@@ -38,26 +40,27 @@ class BoredFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        boredViewModel.boredLiveData.observe(viewLifecycleOwner) { bored ->
-            binding.tvAccessibility.text = bored.accessibility.toString()
-            binding.tvActivity.text = bored.activity
-            binding.tvType.text = bored.type
-            binding.tvPrice.text = bored.price.toString()
-            binding.tvParticipants.text = bored.participants.toString()
-            binding.tvLink.text = bored.link
-            binding.tvKey.text = bored.key
-            boredViewModel.fetchBoredData()
+        personViewModel.personLiveData.observe(viewLifecycleOwner) { person ->
+            binding.fragmentBaseAge.text = person.age.toString()
+            binding.fragmentBaseName.text = person.name
+            binding.fragmentBaseCountry.text = person.country
+            binding.fragmentBaseNationality.text = person.nationality
+            // TODO: дописать обновление интерфейса
+            personViewModel.fetchPersonData(options!!.name)
         }
     }
+
     private fun onExitPressed() {
         navigator().goBack()
     }
 
+
+
     companion object {
         private const val KEY_OPTIONS = "OPTIONS"
 
-        fun newInstance(options: Options): BoredFragment {
-            val fragment = BoredFragment()
+        fun newInstance(options: Options): PersonFragment {
+            val fragment = PersonFragment()
             val args = Bundle().apply {
                 putParcelable(KEY_OPTIONS, options)
             }

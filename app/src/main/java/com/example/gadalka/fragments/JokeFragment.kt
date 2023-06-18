@@ -5,21 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
+import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentJokeBinding
 
 class JokeFragment : Fragment() {
 
-    private var _binding: FragmentJokeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentJokeBinding
 
     private var options: Options? = null
+
+    private var jokeViewModel: JokeViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            options = it.getParcelable(KEY_OPTIONS)
+            options = it.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
         }
+        jokeViewModel = ViewModelProvider(this).get(JokeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -27,14 +32,28 @@ class JokeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentJokeBinding.inflate(inflater, container, false)
+        binding = FragmentJokeBinding.inflate(inflater, container, false)
+        binding.exit.setOnClickListener { onExitPressed() }
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        jokeViewModel?.fetchJokeData()
+
+        jokeViewModel?.jokeLiveData?.observe(viewLifecycleOwner) { joke ->
+
+            binding.tvJokePunchline.text = joke.punchline
+            binding.tvJokeSetup.text = joke.setup
+            binding.tvJokeType.text = joke.type
+            // TODO: дописать обновление интерфейса
+        }
     }
+    private fun onExitPressed() {
+        navigator().goBack()
+    }
+
 
     companion object {
         private const val KEY_OPTIONS = "OPTIONS"

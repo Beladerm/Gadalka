@@ -19,7 +19,7 @@ import com.example.gadalka.contract.HasCustomTitle
 import com.example.gadalka.contract.Navigator
 import com.example.gadalka.contract.ResultListener
 import com.example.gadalka.databinding.ActivityMainBinding
-import com.example.gadalka.fragments.BaseFragment
+import com.example.gadalka.fragments.PersonFragment
 import com.example.gadalka.fragments.BoredFragment
 import com.example.gadalka.fragments.JokeFragment
 import com.example.gadalka.fragments.MenuFragment
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun showBaseScreen(options: Options) {
-    launchFragment(BaseFragment())
+    launchFragment(PersonFragment())
     }
 
     private fun launchFragment(fragment: Fragment) {
