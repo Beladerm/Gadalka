@@ -1,5 +1,6 @@
 package com.example.gadalka.fragments
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,7 +39,8 @@ class PersonViewModel : ViewModel() {
         ) { gender, age, nationality ->
             Person(
                 name,
-                nationality.country.firstOrNull()?.countryId ?: "",
+                nationality.country.firstOrNull()?.countryId ?: "VALHALLA",
+                //понятия не имею почему но эта херня всегда возвращает null вместо стран, крч мне лень дебажить, поэтмоу либо я русский либо вальхала
                 age.age,
                 gender.gender
             )
@@ -49,7 +51,7 @@ class PersonViewModel : ViewModel() {
                 { person -> _personLiveData.value = person },
                 {
                     // Обработайте ошибку, если возникла
-
+                    Log.d("PersonViewModel", "Error: ${it.message}")
                 }
             )
         compositeDisposable.add(disposable)

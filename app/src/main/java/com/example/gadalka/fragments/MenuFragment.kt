@@ -36,10 +36,7 @@ class MenuFragment: Fragment() {
         optionsViewModel?.name?.observe(viewLifecycleOwner) { name ->
             options = options.copy(name = name)
         }
-//
-//        navigator().listenResult(Options::class.java, viewLifecycleOwner) {
-//            options = it
-//        }
+
         with(binding) {
 
             randomButton.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.example.gadalka.fragments
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,7 +27,7 @@ class BoredViewModel: ViewModel() {
             .subscribe(
                 { bored -> _boredLiveData.postValue(bored) },
                 {
-                    // Обработайте ошибку, если возникла
+                    Log.d("BoredViewModel", "Error: ${it.message}")
 
                 }
             )

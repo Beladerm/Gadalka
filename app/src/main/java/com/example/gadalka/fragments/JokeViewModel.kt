@@ -1,5 +1,6 @@
 package com.example.gadalka.fragments
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,8 +26,8 @@ class JokeViewModel: ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { joke -> _jokeLiveData.postValue(joke) },
-                { error ->
-                    // Обработка ошибки, если возникла
+                {
+                    Log.d("JokeViewModel", "Error: ${it.message}")
                 }
             )
         compositeDisposable.add(disposable)
