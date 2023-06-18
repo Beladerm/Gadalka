@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentBaseBinding
+import com.example.gadalka.model.source.Country
+import com.example.gadalka.model.source.Nationality
 
 class PersonFragment : Fragment() {
 
@@ -43,6 +45,17 @@ class PersonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         personViewModel?.fetchPersonData(options!!.name )
+
+//        personViewModel?.fetchNationalityData(options!!.name)
+//        var temp : Nationality
+//        var tempC : List<Country>
+//        var t : String
+//        personViewModel?.nationalityLiveData?.observe(viewLifecycleOwner) {
+//            temp = it
+//            tempC = temp.country
+//            t = tempC[0].toString()
+//        }
+
 
         personViewModel?.personLiveData?.observe(viewLifecycleOwner) { person ->
             with(binding) {
