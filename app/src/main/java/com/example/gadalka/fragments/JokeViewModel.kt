@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.gadalka.api.ApiFactory
 import com.example.gadalka.api.JokeApiService
 import com.example.gadalka.model.Joke
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class JokeViewModel: ViewModel() {
 
@@ -19,11 +21,12 @@ class JokeViewModel: ViewModel() {
 
     fun fetchJokeData() {
         val disposable = jokeApiService.getJokeData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { joke -> _jokeLiveData.value = joke },
-                {
-                    // Обработайте ошибку, если возникла
-
+                { joke -> _jokeLiveData.postValue(joke) },
+                { error ->
+                    // Обработка ошибки, если возникла
                 }
             )
         compositeDisposable.add(disposable)

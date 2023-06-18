@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentBoredBinding
@@ -16,13 +17,14 @@ class BoredFragment : Fragment() {
 
     private var options: Options? = null
 
-    private val boredViewModel: BoredViewModel by viewModels()
+    private var boredViewModel: BoredViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             options = it.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
         }
+        boredViewModel = ViewModelProvider(this)[BoredViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -38,15 +40,18 @@ class BoredFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        boredViewModel.boredLiveData.observe(viewLifecycleOwner) { bored ->
-            binding.tvAccessibility.text = bored.accessibility.toString()
-            binding.tvActivity.text = bored.activity
-            binding.tvType.text = bored.type
-            binding.tvPrice.text = bored.price.toString()
-            binding.tvParticipants.text = bored.participants.toString()
-            binding.tvLink.text = bored.link
-            binding.tvKey.text = bored.key
-            boredViewModel.fetchBoredData()
+        boredViewModel?.fetchBoredData()
+
+        boredViewModel?.boredLiveData?.observe(viewLifecycleOwner) { bored ->
+            with(binding) {
+                tvAccessibility.text = bored.accessibility.toString()
+                tvActivity.text = bored.activity
+                tvType.text = bored.type
+                tvPrice.text = bored.price.toString()
+                tvParticipants.text = bored.participants.toString()
+                tvLink.text = bored.link
+                tvKey.text = bored.key
+            }
         }
     }
     private fun onExitPressed() {

@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.gadalka.api.ApiFactory
 import com.example.gadalka.api.BoredApiService
 import com.example.gadalka.model.Bored
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BoredViewModel: ViewModel() {
 
@@ -19,8 +21,10 @@ class BoredViewModel: ViewModel() {
 
     fun fetchBoredData() {
         val disposable = boredApiService.getBoredData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { bored -> _boredLiveData.value = bored },
+                { bored -> _boredLiveData.postValue(bored) },
                 {
                     // Обработайте ошибку, если возникла
 

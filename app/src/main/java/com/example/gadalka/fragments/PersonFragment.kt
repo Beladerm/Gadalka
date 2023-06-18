@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentBaseBinding
@@ -16,7 +17,7 @@ class PersonFragment : Fragment() {
 
     private var options: Options? = null
 
-    private val personViewModel: PersonViewModel by viewModels()
+    private var personViewModel: PersonViewModel? = null
 
 
 
@@ -25,6 +26,7 @@ class PersonFragment : Fragment() {
         arguments?.let {
             options = it.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
         }
+        personViewModel = ViewModelProvider(this)[PersonViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -40,13 +42,15 @@ class PersonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        personViewModel.personLiveData.observe(viewLifecycleOwner) { person ->
+        personViewModel?.fetchPersonData(options!!.name)
+
+        personViewModel?.personLiveData?.observe(viewLifecycleOwner) { person ->
             binding.fragmentBaseAge.text = person.age.toString()
             binding.fragmentBaseName.text = person.name
             binding.fragmentBaseCountry.text = person.country
             binding.fragmentBaseNationality.text = person.nationality
-            // TODO: дописать обновление интерфейса
-            personViewModel.fetchPersonData(options!!.name)
+
+
         }
     }
 

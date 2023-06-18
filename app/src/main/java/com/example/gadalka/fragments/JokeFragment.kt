@@ -24,7 +24,7 @@ class JokeFragment : Fragment() {
         arguments?.let {
             options = it.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
         }
-        jokeViewModel = ViewModelProvider(this).get(JokeViewModel::class.java)
+        jokeViewModel = ViewModelProvider(this)[JokeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -43,11 +43,11 @@ class JokeFragment : Fragment() {
         jokeViewModel?.fetchJokeData()
 
         jokeViewModel?.jokeLiveData?.observe(viewLifecycleOwner) { joke ->
-
-            binding.tvJokePunchline.text = joke.punchline
-            binding.tvJokeSetup.text = joke.setup
-            binding.tvJokeType.text = joke.type
-            // TODO: дописать обновление интерфейса
+            with(binding) {
+                tvJokePunchline.text = joke.punchline
+                tvJokeSetup.text = joke.setup
+                tvJokeType.text = joke.type
+            }
         }
     }
     private fun onExitPressed() {
