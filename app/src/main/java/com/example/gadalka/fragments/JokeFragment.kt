@@ -5,21 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
+import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentJokeBinding
 
 class JokeFragment : Fragment() {
 
-    private var _binding: FragmentJokeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentJokeBinding
 
-    private var options: Options? = null
+    private var jokeViewModel: JokeViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            options = it.getParcelable(KEY_OPTIONS)
-        }
+
+        jokeViewModel = ViewModelProvider(this)[JokeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -27,25 +28,26 @@ class JokeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentJokeBinding.inflate(inflater, container, false)
+        binding = FragmentJokeBinding.inflate(inflater, container, false)
+        binding.exit.setOnClickListener { onExitPressed() }
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    companion object {
-        private const val KEY_OPTIONS = "OPTIONS"
+        jokeViewModel?.fetchJokeData()
 
-        fun newInstance(options: Options): JokeFragment {
-            val fragment = JokeFragment()
-            val args = Bundle().apply {
-                putParcelable(KEY_OPTIONS, options)
+        jokeViewModel?.jokeLiveData?.observe(viewLifecycleOwner) { joke ->
+            with(binding) {
+                tvJokePunchline.text = joke.punchline
+                tvJokeSetup.text = joke.setup
+                tvJokeType.text = joke.type
             }
-            fragment.arguments = args
-            return fragment
         }
     }
+    private fun onExitPressed() {
+        navigator().goBack()
+    }
+
 }

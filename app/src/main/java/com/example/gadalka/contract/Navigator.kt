@@ -13,9 +13,9 @@ interface Navigator {
 
     fun showBaseScreen(options: Options)
 
-    fun showBoredScreen(options: Options)
+    fun showBoredScreen()
 
-    fun showJokeScreen(options: Options)
+    fun showJokeScreen()
 
     fun goBack()
 

@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- activity_layout.xml -->
+<!-- activity_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity" />
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvParticipants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Participants"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Key"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvAccessibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accessibility"
+        android:layout_marginTop="40dp" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:text="@string/exit"
+        android:layout_marginTop="40dp"
+        />
+
+</LinearLayout>
+

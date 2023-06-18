@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentMenuBinding
@@ -14,12 +15,15 @@ import com.example.gadalka.databinding.FragmentMenuBinding
 class MenuFragment: Fragment() {
 
     private lateinit var options: Options
-    private val optionsViewModel: OptionsViewModel by viewModels()
+    private var optionsViewModel: OptionsViewModel? = null
     private lateinit var binding: FragmentMenuBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        optionsViewModel = ViewModelProvider(this)[OptionsViewModel::class.java]
+
         options = savedInstanceState?.getParcelable("") ?: Options.DEFAULT
+
     }
 
     override fun onCreateView(
@@ -29,13 +33,10 @@ class MenuFragment: Fragment() {
     ): View {
         binding = FragmentMenuBinding.inflate(inflater, container, false)
 
-        optionsViewModel.name.observe(viewLifecycleOwner) { name ->
+        optionsViewModel?.name?.observe(viewLifecycleOwner) { name ->
             options = options.copy(name = name)
         }
-//
-//        navigator().listenResult(Options::class.java, viewLifecycleOwner) {
-//            options = it
-//        }
+
         with(binding) {
 
             randomButton.setOnClickListener {
@@ -80,17 +81,17 @@ class MenuFragment: Fragment() {
         navigator().goBack()
     }
     private fun onJokePressed(name: String) {
-        optionsViewModel.setName(name)
-        navigator().showJokeScreen(options)
+        optionsViewModel?.setName(name)
+        navigator().showJokeScreen()
     }
 
     private fun onBoredPressed(name: String) {
-        optionsViewModel.setName(name)
-        navigator().showBoredScreen(options)
+        optionsViewModel?.setName(name)
+        navigator().showBoredScreen()
     }
 
     private fun onBasePressed(name: String) {
-        optionsViewModel.setName(name)
+        optionsViewModel?.setName(name)
         navigator().showBaseScreen(options)
     }
 

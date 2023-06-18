@@ -5,21 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
+import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentBoredBinding
 
 class BoredFragment : Fragment() {
 
-    private var _binding: FragmentBoredBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentBoredBinding
 
-    private var options: Options? = null
+
+    private var boredViewModel: BoredViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            options = it.getParcelable(KEY_OPTIONS)
-        }
+        boredViewModel = ViewModelProvider(this)[BoredViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -27,25 +28,30 @@ class BoredFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBoredBinding.inflate(inflater, container, false)
+        binding = FragmentBoredBinding.inflate(inflater, container, false)
+        binding.exit.setOnClickListener { onExitPressed() }
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    companion object {
-        private const val KEY_OPTIONS = "OPTIONS"
+        boredViewModel?.fetchBoredData()
 
-        fun newInstance(options: Options): BoredFragment {
-            val fragment = BoredFragment()
-            val args = Bundle().apply {
-                putParcelable(KEY_OPTIONS, options)
+        boredViewModel?.boredLiveData?.observe(viewLifecycleOwner) { bored ->
+            with(binding) {
+                tvAccessibility.text = bored.accessibility.toString()
+                tvActivity.text = bored.activity
+                tvType.text = bored.type
+                tvPrice.text = bored.price.toString()
+                tvParticipants.text = bored.participants.toString()
+                tvLink.text = bored.link
+                tvKey.text = bored.key
             }
-            fragment.arguments = args
-            return fragment
         }
     }
+    private fun onExitPressed() {
+        navigator().goBack()
+    }
+
 }
