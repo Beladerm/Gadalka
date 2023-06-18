@@ -15,15 +15,11 @@ class JokeFragment : Fragment() {
 
     private lateinit var binding: FragmentJokeBinding
 
-    private var options: Options? = null
-
     private var jokeViewModel: JokeViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            options = it.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
-        }
+
         jokeViewModel = ViewModelProvider(this)[JokeViewModel::class.java]
     }
 
@@ -54,17 +50,4 @@ class JokeFragment : Fragment() {
         navigator().goBack()
     }
 
-
-    companion object {
-        private const val KEY_OPTIONS = "OPTIONS"
-
-        fun newInstance(options: Options): JokeFragment {
-            val fragment = JokeFragment()
-            val args = Bundle().apply {
-                putParcelable(KEY_OPTIONS, options)
-            }
-            fragment.arguments = args
-            return fragment
-        }
-    }
 }

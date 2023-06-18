@@ -15,15 +15,11 @@ class BoredFragment : Fragment() {
 
     private lateinit var binding: FragmentBoredBinding
 
-    private var options: Options? = null
 
     private var boredViewModel: BoredViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            options = it.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
-        }
         boredViewModel = ViewModelProvider(this)[BoredViewModel::class.java]
     }
 
@@ -58,16 +54,4 @@ class BoredFragment : Fragment() {
         navigator().goBack()
     }
 
-    companion object {
-        private const val KEY_OPTIONS = "OPTIONS"
-
-        fun newInstance(options: Options): BoredFragment {
-            val fragment = BoredFragment()
-            val args = Bundle().apply {
-                putParcelable(KEY_OPTIONS, options)
-            }
-            fragment.arguments = args
-            return fragment
-        }
-    }
 }

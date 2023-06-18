@@ -10,7 +10,7 @@ data class Options(
 
     companion object {
         @JvmStatic val DEFAULT = Options(
-            name = "NIGGER",
+            name = "Arthur",
         )
     }
 }

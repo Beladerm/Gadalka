@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
@@ -15,7 +14,7 @@ class PersonFragment : Fragment() {
 
     private lateinit var binding: FragmentBaseBinding
 
-    private var options: Options? = null
+    private  var options: Options? = null
 
     private var personViewModel: PersonViewModel? = null
 
@@ -36,20 +35,22 @@ class PersonFragment : Fragment() {
     ): View {
         binding = FragmentBaseBinding.inflate(inflater, container, false)
         binding.exit.setOnClickListener { onExitPressed() }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        personViewModel?.fetchPersonData(options!!.name)
+        personViewModel?.fetchPersonData(options!!.name )
 
         personViewModel?.personLiveData?.observe(viewLifecycleOwner) { person ->
-            binding.fragmentBaseAge.text = person.age.toString()
-            binding.fragmentBaseName.text = person.name
-            binding.fragmentBaseCountry.text = person.country
-            binding.fragmentBaseNationality.text = person.nationality
-
+            with(binding) {
+                fragmentBaseAge.text = person.age.toString()
+                fragmentBaseName.text = person.name
+                fragmentBaseCountry.text = person.country
+                fragmentBaseGender.text = person.gender
+            }
 
         }
     }

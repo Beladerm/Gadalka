@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun showBaseScreen(options: Options) {
-    launchFragment(PersonFragment())
+    launchFragment(PersonFragment.newInstance(options))
     }
 
     private fun launchFragment(fragment: Fragment) {
@@ -138,12 +138,12 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     }
 
-    override fun showBoredScreen(options: Options) {
-        launchFragment(BoredFragment.newInstance(options))
+    override fun showBoredScreen() {
+        launchFragment(BoredFragment())
     }
 
-    override fun showJokeScreen(options: Options) {
-        launchFragment(JokeFragment.newInstance(options))
+    override fun showJokeScreen( ) {
+        launchFragment(JokeFragment())
     }
 
     override fun goBack() {
