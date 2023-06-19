@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentJokeBinding
 

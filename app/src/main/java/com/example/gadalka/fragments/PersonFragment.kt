@@ -19,7 +19,6 @@ class PersonFragment : Fragment() {
     private var personViewModel: PersonViewModel? = null
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -44,11 +43,12 @@ class PersonFragment : Fragment() {
 
         personViewModel?.fetchPersonData(options!!.name )
 
+
         personViewModel?.personLiveData?.observe(viewLifecycleOwner) { person ->
             with(binding) {
                 fragmentBaseAge.text = person.age.toString()
                 fragmentBaseName.text = person.name
-                fragmentBaseCountry.text = person.country
+                fragmentBaseCountry.text = person.countryId
                 fragmentBaseGender.text = person.gender
             }
 
@@ -58,7 +58,6 @@ class PersonFragment : Fragment() {
     private fun onExitPressed() {
         navigator().goBack()
     }
-
 
 
     companion object {

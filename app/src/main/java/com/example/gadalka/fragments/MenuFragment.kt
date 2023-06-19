@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
@@ -45,13 +44,11 @@ class MenuFragment: Fragment() {
             }
 
             boredButton.setOnClickListener {
-                onButtonPressed { name ->
-                    onBoredPressed(name) }
+                 onBoredPressed()
             }
 
             jokeButton.setOnClickListener {
-                onButtonPressed { name ->
-                    onJokePressed(name) }
+                onJokePressed()
             }
 
             exit.setOnClickListener { onExitPressed() }
@@ -80,13 +77,11 @@ class MenuFragment: Fragment() {
     private fun onExitPressed() {
         navigator().goBack()
     }
-    private fun onJokePressed(name: String) {
-        optionsViewModel?.setName(name)
+    private fun onJokePressed () {
         navigator().showJokeScreen()
     }
 
-    private fun onBoredPressed(name: String) {
-        optionsViewModel?.setName(name)
+    private fun onBoredPressed() {
         navigator().showBoredScreen()
     }
 

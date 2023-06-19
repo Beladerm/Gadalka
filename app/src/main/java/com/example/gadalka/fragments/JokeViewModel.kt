@@ -25,7 +25,7 @@ class JokeViewModel: ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { joke -> _jokeLiveData.postValue(joke) },
+                { joke -> _jokeLiveData.value=joke },
                 {
                     Log.d("JokeViewModel", "Error: ${it.message}")
                 }

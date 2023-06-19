@@ -10,7 +10,7 @@ import com.example.gadalka.api.GenderApiService
 import com.example.gadalka.api.NationalityApiService
 import com.example.gadalka.model.Person
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -26,13 +26,14 @@ class PersonViewModel : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
 
+
     fun fetchPersonData(name: String) {
         val genderObservable = genderApiService.getGenderData(name)
         val ageObservable = ageApiService.getAgeData(name)
         val nationalityObservable = nationalityApiService.getNationalityData(name)
 
 
-        val disposable = Single.zip(
+        val disposable = Observable.zip(
             genderObservable,
             ageObservable,
             nationalityObservable
@@ -40,7 +41,6 @@ class PersonViewModel : ViewModel() {
             Person(
                 name,
                 nationality.country.firstOrNull()?.countryId ?: "VALHALLA",
-                //понятия не имею почему но эта херня всегда возвращает null вместо стран, крч мне лень дебажить, поэтмоу либо я русский либо вальхала
                 age.age,
                 gender.gender
             )
@@ -50,7 +50,6 @@ class PersonViewModel : ViewModel() {
             .subscribe(
                 { person -> _personLiveData.value = person },
                 {
-                    // Обработайте ошибку, если возникла
                     Log.d("PersonViewModel", "Error: ${it.message}")
                 }
             )
