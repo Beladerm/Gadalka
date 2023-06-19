@@ -4,7 +4,6 @@ import com.example.gadalka.model.source.Age
 import com.example.gadalka.model.source.Gender
 import com.example.gadalka.model.source.Nationality
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,13 +1,28 @@
 package com.example.gadalka.api
 
 import com.example.gadalka.ApiConstants
+import com.example.gadalka.api.adapters.NationalityAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class ApiFactory {
 
     companion object {
+
+        private val moshi: Moshi = Moshi.Builder()
+            .add(NationalityAdapter())
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
+        private val nationalityRetrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(ApiConstants.NATIONALITY_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build()
 
         private var genderApiService: GenderApiService? = null
         private var ageApiService: AgeApiService? = null
@@ -58,8 +73,7 @@ class ApiFactory {
 
         fun getNationalityApiService(): NationalityApiService {
             if (nationalityApiService == null) {
-                val retrofit = createRetrofit(ApiConstants.NATIONALITY_URL)
-                nationalityApiService = retrofit.create(NationalityApiService::class.java)
+                nationalityApiService = nationalityRetrofit.create(NationalityApiService::class.java)
             }
             return nationalityApiService!!
         }

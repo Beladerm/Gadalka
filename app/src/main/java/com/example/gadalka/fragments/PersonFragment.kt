@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.gadalka.Options
 import com.example.gadalka.contract.navigator
 import com.example.gadalka.databinding.FragmentBaseBinding
-import com.example.gadalka.model.source.Country
-import com.example.gadalka.model.source.Nationality
 
 class PersonFragment : Fragment() {
 
@@ -19,7 +17,6 @@ class PersonFragment : Fragment() {
     private  var options: Options? = null
 
     private var personViewModel: PersonViewModel? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,22 +43,12 @@ class PersonFragment : Fragment() {
 
         personViewModel?.fetchPersonData(options!!.name )
 
-//        personViewModel?.fetchNationalityData(options!!.name)
-//        var temp : Nationality
-//        var tempC : List<Country>
-//        var t : String
-//        personViewModel?.nationalityLiveData?.observe(viewLifecycleOwner) {
-//            temp = it
-//            tempC = temp.country
-//            t = tempC[0].toString()
-//        }
-
 
         personViewModel?.personLiveData?.observe(viewLifecycleOwner) { person ->
             with(binding) {
                 fragmentBaseAge.text = person.age.toString()
                 fragmentBaseName.text = person.name
-                fragmentBaseCountry.text = person.country
+                fragmentBaseCountry.text = person.countryId
                 fragmentBaseGender.text = person.gender
             }
 
@@ -71,7 +58,6 @@ class PersonFragment : Fragment() {
     private fun onExitPressed() {
         navigator().goBack()
     }
-
 
 
     companion object {
